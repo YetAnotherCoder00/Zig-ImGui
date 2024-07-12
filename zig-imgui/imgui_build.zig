@@ -32,7 +32,7 @@ pub fn linkWithoutPackage(exe: *std.build.LibExeObjStep) void {
 }
 
 pub fn addTestStep(
-    b: *std.build.Builder,
+    b: *std.Build,
     step_name: []const u8,
     mode: std.builtin.Mode,
     target: std.zig.CrossTarget,
