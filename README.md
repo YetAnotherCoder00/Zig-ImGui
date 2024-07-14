@@ -2,6 +2,12 @@
 
 Zig-ImGui uses [cimgui](https://github.com/cimgui/cimgui) to generate [Zig](https://github.com/ziglang/zig) bindings for [Dear ImGui](https://github.com/ocornut/imgui).
 
+## Cloning
+
+```bash
+git clone --recursive https://github.com/YetAnotherCoder00/Zig-ImGui.git
+```
+
 It is currently up to date with [Dear ImGui v1.88](https://github.com/ocornut/imgui/tree/v1.88).
 
 ## Using the pre-generated bindings
