@@ -2,4 +2,3 @@
 zig-out/
 __pycache__/
 imgui.ini
-cimgui/
