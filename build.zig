@@ -38,15 +38,26 @@ pub fn build(b: *std.Build) void {
 
 fn exampleExe(b: *std.Build, comptime name: []const u8, optimize: std.builtin.Mode, target: std.Build.ResolvedTarget) *std.Build.Step.Compile {
     // const exe = b.addExecutable(name, "examples/" ++ name ++ ".zig");
-    const exe = b.addExecutable(.{
-        .name = "example " ++ name,
-        .root_source_file = b.path("examples/" ++ name ++ ".zig"),
+
+    const lib = b.addStaticLibrary(.{
+        .name = "imgui",
+        .root_source_file = b.path("zig-imgui/imgui.zig"),
         .target = target,
         .optimize = optimize,
     });
     // exe.setTarget(target);
     // imgui_build.link(exe);
     // exe.install();
+    const exe = b.addExecutable(.{
+        .name = "example " ++ name,
+        .root_source_file = b.path("examples/" ++ name ++ ".zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+
+    exe.linkLibrary(lib);
+    b.installArtifact(lib);
+
     b.installArtifact(exe);
 
     const run_step = b.step(name, "Run " ++ name);
@@ -60,8 +71,6 @@ fn linkGlad(exe: *std.Build.Step.Compile, b: *std.Build) void {
     const flags = [_][]const u8{"-std=c99"};
     exe.addIncludePath(b.path("examples/include/c_include"));
     exe.addCSourceFile(.{ .file = b.path("examples/c_src/glad.c"), .flags = &flags });
-    // exe.addLibraryPath(b.path(b.path("/run/opengl-driver/lib").cwd_relative));
-    // exe.addLibraryPath(.{ .cwd_relative = "/run/opengl-driver/lib" });
     exe.linkSystemLibrary("OpenGL");
 }
 

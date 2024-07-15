@@ -18,7 +18,7 @@ fn glfw_error_callback(err: c_int, description: ?[*:0]const u8) callconv(.C) voi
 
 pub fn main() !void {
     // Setup window
-    _ = glfw.glfwSetErrorCallback(glfw_error_callback);
+    // _ = glfw.glfwSetErrorCallback(&glfw_error_callback);
     if (glfw.glfwInit() == 0)
         return error.GlfwInitFailed;
 
@@ -39,8 +39,7 @@ pub fn main() !void {
     }
 
     // Create window with graphics context
-    const window = glfw.glfwCreateWindow(1280, 720, "Dear ImGui GLFW+OpenGL3 example", null, null)
-        orelse return error.GlfwCreateWindowFailed;
+    const window = glfw.glfwCreateWindow(1280, 720, "Dear ImGui GLFW+OpenGL3 example", null, null) orelse return error.GlfwCreateWindowFailed;
     glfw.glfwMakeContextCurrent(window);
     glfw.glfwSwapInterval(1); // Enable vsync
 
@@ -112,7 +111,7 @@ pub fn main() !void {
             _ = imgui.Checkbox("Another Window", &show_another_window);
 
             _ = imgui.SliderFloat("float", &slider_value, 0.0, 1.0); // Edit 1 float using a slider from 0.0 to 1.0
-            _ = imgui.ColorEdit3("clear color", @ptrCast(*[3]f32, &clear_color)); // Edit 3 floats representing a color
+            _ = imgui.ColorEdit3("clear color", @as(*[3]f32, &clear_color)); // Edit 3 floats representing a color
 
             if (imgui.Button("Button")) // Buttons return true when clicked (most widgets return true when edited/activated)
                 counter += 1;

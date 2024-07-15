@@ -436,7 +436,7 @@ pub extern fn glfwGetVersion(major: ?*i32, minor: ?*i32, rev: ?*i32) callconv(.C
 pub extern fn glfwGetVersionString() callconv(.C) [*:0]const u8;
 
 pub extern fn glfwGetError(description: ?*?[*:0]const u8) callconv(.C) i32;
-pub extern fn glfwSetErrorCallback(callback: GLFWerrorfun) callconv(.C) GLFWerrorfun;
+pub extern fn glfwSetErrorCallback(callback: ?*GLFWerrorfun) callconv(.C) ?*GLFWerrorfun;
 
 pub extern fn glfwGetMonitors(count: *i32) callconv(.C) ?[*]const *GLFWmonitor;
 pub extern fn glfwGetPrimaryMonitor() callconv(.C) ?*GLFWmonitor;
